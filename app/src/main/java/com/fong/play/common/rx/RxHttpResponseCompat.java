@@ -1,6 +1,7 @@
 package com.fong.play.common.rx;
 
 import com.fong.play.common.exception.ApiException;
+import com.fong.play.common.exception.BaseException;
 import com.fong.play.data.bean.BaseBean;
 
 import rx.Observable;
@@ -32,6 +33,7 @@ public class RxHttpResponseCompat {
                                     try {
                                         subscriber.onNext(tBaseBean.getData());
                                         subscriber.onCompleted();
+                                         subscriber.onError(new ApiException(BaseException.HTTP_ERROR,"Http错误"));
                                     } catch (Exception e) {
                                         subscriber.onError(e);
                                     }

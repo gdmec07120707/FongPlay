@@ -11,6 +11,7 @@ import com.eftimoff.androipathview.PathView;
 import com.fong.play.R;
 import com.fong.play.common.Constant;
 import com.fong.play.common.utils.ACache;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +51,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void jump(){
+        Logger.d("jump");
         String isShowGuide =  ACache.get(this).getAsString(Constant.IS_SHOW_GUIDE);
         // 第一次启动进入引导页面
         if(null == isShowGuide){

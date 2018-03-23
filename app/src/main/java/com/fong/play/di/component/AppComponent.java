@@ -1,5 +1,6 @@
 package com.fong.play.di.component;
 
+import com.fong.play.common.rx.RxErrorHnadler;
 import com.fong.play.data.http.ApiService;
 import com.fong.play.di.module.AppModule;
 import com.fong.play.di.module.HttpModule;
@@ -16,5 +17,9 @@ import dagger.Component;
 @Component(modules = {AppModule.class, HttpModule.class})
 public interface AppComponent {
     public ApiService getApiService();
+
+
+
+    public RxErrorHnadler getRxErrorHandler();
 
 }

@@ -1,5 +1,8 @@
 package com.fong.play.di.module;
 
+import android.app.Application;
+
+import com.fong.play.common.rx.RxErrorHnadler;
 import com.fong.play.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
@@ -67,5 +70,11 @@ public class HttpModule {
     @Singleton
     public ApiService provideApiService(Retrofit retrofit){
         return retrofit.create(ApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    public RxErrorHnadler provideRxErrorHandler(Application application){
+        return new RxErrorHnadler(application);
     }
 }

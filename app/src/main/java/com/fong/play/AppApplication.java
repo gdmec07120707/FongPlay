@@ -8,6 +8,8 @@ import com.fong.play.di.component.DaggerAppComponent;
 import com.fong.play.di.component.DaggerRecommendComponent;
 import com.fong.play.di.module.AppModule;
 import com.fong.play.di.module.HttpModule;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by FANGDINGJIE
@@ -26,6 +28,8 @@ public class AppApplication extends Application {
                 .appModule(new AppModule(this))
                 .httpModule(new HttpModule())
                 .build();
+
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
     public static AppApplication get(Context context){

@@ -12,9 +12,8 @@ import com.fong.play.AppApplication;
 import com.fong.play.R;
 import com.fong.play.di.component.AppComponent;
 import com.fong.play.presenter.BasePresenter;
-
+import com.orhanobut.logger.Logger;
 import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -47,7 +46,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         mAppApplication = (AppApplication) getActivity().getApplication();
         setupActivityComponent(mAppApplication.getAppComponent());
         init();
-        Log.d("BaseFragment","onActivityCreated");
+        Logger.d("onActivityCreated");
+     //   Log.d("BaseFragment","onActivityCreated");
     }
 
     @Override

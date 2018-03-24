@@ -15,12 +15,12 @@ import com.orhanobut.logger.Logger;
 
 public abstract class ErrorHanderSubscriber<T> extends DefaultSubscriber<T> {
     protected RxErrorHnadler mErrorHandler = null;
-    //protected Context mContext;
+    protected Context mContext;
 
-    public ErrorHanderSubscriber(RxErrorHnadler mErrorHandler) {
-        //this.mContext = mContext;
-        //mErrorHandler = new RxErrorHnadler(mContext);
-        this.mErrorHandler = mErrorHandler;
+    public ErrorHanderSubscriber(Context mContext) {
+        this.mContext = mContext;
+        mErrorHandler = new RxErrorHnadler(mContext);
+        //this.mErrorHandler = mErrorHandler;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class RxHttpResponseCompat {
                                     try {
                                         subscriber.onNext(tBaseBean.getData());
                                         subscriber.onCompleted();
-                                         subscriber.onError(new ApiException(BaseException.HTTP_ERROR,"Http错误"));
+                                         //subscriber.onError(new ApiException(BaseException.HTTP_ERROR,"Http错误"));
                                     } catch (Exception e) {
                                         subscriber.onError(e);
                                     }

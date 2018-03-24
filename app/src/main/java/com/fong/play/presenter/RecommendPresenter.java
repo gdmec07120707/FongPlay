@@ -3,6 +3,7 @@ package com.fong.play.presenter;
 import com.fong.play.common.rx.RxErrorHnadler;
 import com.fong.play.common.rx.RxHttpResponseCompat;
 import com.fong.play.common.rx.subscriber.ErrorHanderSubscriber;
+import com.fong.play.common.rx.subscriber.ProgressDialogSubcriber;
 import com.fong.play.data.bean.AppInfo;
 import com.fong.play.data.bean.PageBean;
 import com.fong.play.data.RecommendModel;
@@ -36,18 +37,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
     public void requestData() {
         mModel.getApps()
                 .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
-                .subscribe(new ErrorHanderSubscriber<PageBean<AppInfo>>(mErrorHandler) {
-
-                    @Override
-                    public void onStart() {
-                        mView.dismissionProgress();
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                        mView.dismissionProgress();
-                    }
-
+                .subscribe(new ProgressDialogSubcriber<PageBean<AppInfo>>(mContext) {
                     @Override
                     public void onNext(PageBean<AppInfo> appInfoPageBean) {
                         if (appInfoPageBean != null) {

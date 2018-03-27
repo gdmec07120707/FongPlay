@@ -6,6 +6,9 @@ package com.fong.play.ui;
  */
 
 public interface BaseView {
-    void showProgress();
-    void dismissionProgress();
+    void showLoading();
+
+    void showError(String msg);
+
+    void dismissLoading();
 }

@@ -2,8 +2,10 @@ package com.fong.play.di.module;
 
 import android.app.Application;
 
+import com.fong.play.common.http.CommonParamsInterceptor;
 import com.fong.play.common.rx.RxErrorHnadler;
 import com.fong.play.data.http.ApiService;
+import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +29,7 @@ public class HttpModule {
 
     @Provides
     @Singleton
-    public OkHttpClient getOkHttpClient(){
+    public OkHttpClient getOkHttpClient(Application application, Gson gson){
         // log用拦截器
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 
@@ -40,6 +42,7 @@ public class HttpModule {
         return new OkHttpClient.Builder()
                 // HeadInterceptor实现了Interceptor，用来往Request Header添加一些业务相关数据，如APP版本，token信息
 //                .addInterceptor(new HeadInterceptor())
+                .addInterceptor(new CommonParamsInterceptor(application,gson))
                 .addInterceptor(logging)
                 // 连接超时时间设置
                 .connectTimeout(10, TimeUnit.SECONDS)

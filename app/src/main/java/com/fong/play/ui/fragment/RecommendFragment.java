@@ -36,7 +36,7 @@ import butterknife.Unbinder;
  * Describe :
  */
 
-public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
+public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements RecommendContract.View {
 
     @BindView(R.id.rv_recommend)
     RecyclerView rvRecommend;
@@ -45,12 +45,13 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     ProgressDialog progressDialog;
 
     @Override
-    protected int setLayout() {
+    public int setLayout() {
         return R.layout.fragment_recommend;
     }
 
+
     @Override
-    protected void setupActivityComponent(AppComponent appComponent) {
+    public void setupAcitivtyComponent(AppComponent appComponent) {
         DaggerRecommendComponent.builder()
                 .appComponent(appComponent)
                 .recommendModule(new RecommendModule(this))
@@ -58,36 +59,29 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     }
 
     @Override
-    protected void init() {
+    public void init() {
         mPresenter.requestData();
-    }
-
-
-    @Override
-    public void showProgress() {
-        progressDialog.show();
-    }
-
-    @Override
-    public void dismissionProgress() {
-       if(progressDialog.isShowing()){
-            progressDialog.dismiss();
-        }
     }
 
     @Override
     public void showResult(List<AppInfo> data) {
+        showContentView();
         initRecycleView( data);
     }
 
     @Override
+    public void showLoading() {
+        showProgressView();
+    }
+
+    @Override
     public void showError(String msg) {
-        Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
+       showError(msg);
     }
 
     @Override
     public void showEmpty() {
-        Toast.makeText(getActivity(),"无数据1",Toast.LENGTH_SHORT).show();
+        showEmptyView("暂无数据");
     }
 
     private void initRecycleView(List<AppInfo> datas){

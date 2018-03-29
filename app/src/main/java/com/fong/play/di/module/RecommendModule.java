@@ -2,10 +2,9 @@ package com.fong.play.di.module;
 
 import android.app.ProgressDialog;
 
-import com.fong.play.data.RecommendModel;
+import com.fong.play.data.AppInfoModel;
 import com.fong.play.data.http.ApiService;
-import com.fong.play.presenter.RecommendPresenter;
-import com.fong.play.presenter.constract.RecommendContract;
+import com.fong.play.presenter.constract.AppInfoContract;
 import com.fong.play.ui.fragment.RecommendFragment;
 
 import dagger.Module;
@@ -18,24 +17,24 @@ import dagger.Provides;
 @Module
 public class RecommendModule {
 
-    private RecommendContract.View view;
+    private AppInfoContract.View view;
 
-    public RecommendModule(RecommendContract.View view){
+    public RecommendModule(AppInfoContract.View view){
         this.view = view;
     }
 
     @Provides
-    public RecommendContract.View provideView(){
+    public AppInfoContract.View provideView(){
         return view;
     }
 
     @Provides
-    public ProgressDialog provideProgressDialog(RecommendContract.View view){
+    public ProgressDialog provideProgressDialog(AppInfoContract.View view){
         return new ProgressDialog(((RecommendFragment)view).getActivity());
     }
 
     @Provides
-    public RecommendModel provideModel(ApiService mApiService){
-        return new RecommendModel(mApiService);
+    public AppInfoModel provideModel(ApiService mApiService){
+        return new AppInfoModel(mApiService);
     }
 }

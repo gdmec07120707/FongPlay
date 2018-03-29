@@ -3,6 +3,7 @@ package com.fong.play.common.utils;
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -41,14 +42,15 @@ public class DeviceUtils {
         return Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
-    /*public static String getIMEI(Context ctx) {
+    @SuppressLint("MissingPermission")
+    public static String getIMEI(Context ctx) {
         return ((TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
     }
 
-    public static String getIMSI(Context ctx) {
+    /*public static String getIMSI(Context ctx) {
         TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
         return tm.getSubscriberId() != null ? tm.getSubscriberId() : null;
-    }*/
+    }
 
     @SuppressWarnings("MissingPermission")
     public static String getWifiMacAddr(Context ctx) {

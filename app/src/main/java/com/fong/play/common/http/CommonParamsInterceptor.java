@@ -47,7 +47,7 @@ public class CommonParamsInterceptor implements Interceptor {
         try {
             HashMap<String, Object> commomParamsMap = new HashMap<>();
 
-            commomParamsMap.put(Constant.IMEI, "11111");//DeviceUtils.getIMEI(mContext)
+            commomParamsMap.put(Constant.IMEI, "5456773132487564567");//DeviceUtils.getIMEI(mContext)
             commomParamsMap.put(Constant.MODEL, DeviceUtils.getModel());
             commomParamsMap.put(Constant.LANGUAGE, DeviceUtils.getLanguage());
             commomParamsMap.put(Constant.os, DeviceUtils.getBuildVersionIncremental());
@@ -114,10 +114,7 @@ public class CommonParamsInterceptor implements Interceptor {
                     rootMap = mGson.fromJson(oldJsonParams, HashMap.class); // 原始参数
                     rootMap.put("publicParams", commomParamsMap); // 重新组装
                     String newJsonParams = mGson.toJson(rootMap); // {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
-
                     request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
-
-
                 }
             }
         } catch (JsonSyntaxException e) {

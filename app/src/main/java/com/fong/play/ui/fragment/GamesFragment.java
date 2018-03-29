@@ -8,19 +8,36 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fong.play.R;
+import com.fong.play.di.component.AppComponent;
+import com.fong.play.di.component.DaggerAppInfoComponent;
+import com.fong.play.di.module.AppInfoModule;
+import com.fong.play.presenter.AppInfoPresenter;
+import com.fong.play.ui.adapter.AppInfoAdapter;
 
 /**
  * Created by yechao on 2017/6/7.
  * Describe :
  */
 
-public class GamesFragment extends Fragment {
+public class GamesFragment extends BaseAppInfoFragment {
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_games, container, false);
-        return view;
+    public int type() {
+        return AppInfoPresenter.GAME;
     }
 
+    @Override
+    public AppInfoAdapter buildAdapter() {
+        return AppInfoAdapter.builder().showBrief(false).showCategoryName(true).showPosition(true).build();
+    }
+
+    @Override
+    public void setupAcitivtyComponent(AppComponent appComponent) {
+        DaggerAppInfoComponent.builder()
+                .appComponent(appComponent)
+                .appInfoModule(new AppInfoModule(this))
+                .build()
+                .injectGamesFragment(this);
+    }
 }

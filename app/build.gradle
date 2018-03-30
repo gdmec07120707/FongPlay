@@ -71,4 +71,8 @@ dependencies {
     //适配器
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
+    compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
+
+    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
+
 }

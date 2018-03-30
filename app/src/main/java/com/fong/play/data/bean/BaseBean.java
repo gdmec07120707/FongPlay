@@ -5,7 +5,7 @@ package com.fong.play.data.bean;
  * 2018/3/21.
  */
 
-public class BaseBean<T> {
+public class BaseBean<T> extends BaseEntity{
     public static final int SUCCESS = 1;
     private int status;
     private String message;

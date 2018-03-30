@@ -21,7 +21,6 @@ public class RxHttpResponseCompat {
         return new Observable.Transformer<BaseBean<T>, T>() {
             @Override
             public Observable<T> call(Observable<BaseBean<T>> baseBeanObservable) {
-
                 return baseBeanObservable.flatMap(new Func1<BaseBean<T>, Observable<T>>() {
                     @Override
                     public Observable<T> call(final BaseBean<T> tBaseBean) {
@@ -45,6 +44,8 @@ public class RxHttpResponseCompat {
                     }
                 }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
             }
+
+
         };
 
 

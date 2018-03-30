@@ -28,7 +28,7 @@ public class BasePresenter<M,V extends BaseView> {
         if(mView instanceof Fragment){
             mContext = ((Fragment)mView).getActivity();
         }else{
-            mContext = (Activity)mContext;
+            mContext = (Activity)mView;
         }
     }
 }

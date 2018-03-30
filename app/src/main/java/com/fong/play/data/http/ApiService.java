@@ -3,10 +3,14 @@ package com.fong.play.data.http;
 import com.fong.play.data.bean.AppInfo;
 import com.fong.play.data.bean.BaseBean;
 import com.fong.play.data.bean.IndexBean;
+import com.fong.play.data.bean.LoginBean;
 import com.fong.play.data.bean.PageBean;
+import com.fong.play.data.bean.requestbean.LoginRequestBean;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 import rx.Observer;
@@ -30,4 +34,7 @@ public interface ApiService {
 
     @GET("game")
     public Observable<BaseBean<PageBean<AppInfo>>> getGames(@Query("page") int page);
+
+    @POST("login")
+    public Observable<BaseBean<LoginBean>> login(@Body LoginRequestBean param);
 }

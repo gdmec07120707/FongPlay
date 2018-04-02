@@ -20,31 +20,16 @@ import com.fong.play.data.bean.Category;
  * @date
  */
 
-public class CategoryAdapter extends BaseQuickAdapter<Category,BaseViewHolder> {
-
-
-
-
+public class CategoryAdapter extends BaseQuickAdapter<Category, BaseViewHolder> {
 
     public CategoryAdapter() {
-
         super(R.layout.template_category);
-
     }
-
-
-
 
     @Override
     protected void convert(BaseViewHolder helper, Category item) {
-
-        helper.setText(R.id.text_name,item.getName());
-
-        ImageLoader.load(Constant.BASE_IMG_URL+item.getIcon(), (ImageView) helper.getView(R.id.img_icon));
+        helper.setText(R.id.text_name, item.getName());
+        ImageLoader.load(Constant.BASE_IMG_URL + item.getIcon(), (ImageView) helper.getView(R.id.img_icon));
     }
-
-
-
-
 
 }

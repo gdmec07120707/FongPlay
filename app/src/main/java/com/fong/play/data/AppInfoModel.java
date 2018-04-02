@@ -5,6 +5,8 @@ import com.fong.play.data.bean.BaseBean;
 import com.fong.play.data.bean.IndexBean;
 import com.fong.play.data.bean.PageBean;
 import com.fong.play.data.http.ApiService;
+
+import retrofit2.http.GET;
 import rx.Observable;
 
 /**
@@ -29,12 +31,27 @@ public class AppInfoModel {
         return mApiService.getIndex();
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> getTopList(int page){
+    public Observable<BaseBean<PageBean<AppInfo>>> getTopList(int page) {
         return mApiService.getTopList(page);
-    };
+    }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> getGames(int page){
+    public Observable<BaseBean<PageBean<AppInfo>>> getGames(int page) {
         return mApiService.getGames(page);
+    }
+
+    public Observable<BaseBean<PageBean<AppInfo>>> getFeaturedAppsByCategory(int categoryid, int page) {
+
+        return mApiService.getFeaturedAppsByCategory(categoryid, page);
+    }
+
+    public Observable<BaseBean<PageBean<AppInfo>>> getTopListAppsByCategory(int categoryid, int page) {
+
+        return mApiService.getTopListAppsByCategory(categoryid, page);
+    }
+
+    public Observable<BaseBean<PageBean<AppInfo>>> getNewListAppsByCategory(int categoryid, int page) {
+
+        return mApiService.getNewListAppsByCategory(categoryid, page);
     }
 
 }

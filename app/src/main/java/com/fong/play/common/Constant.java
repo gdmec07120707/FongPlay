@@ -22,4 +22,6 @@ public class Constant {
 
     public static final String TOKEN = "token";
     public static final String USER = "user";
+
+    public static final String CATEGORY = "category";
 }

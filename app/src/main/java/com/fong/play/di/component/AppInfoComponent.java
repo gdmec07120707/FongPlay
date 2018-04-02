@@ -2,6 +2,7 @@ package com.fong.play.di.component;
 
 import com.fong.play.di.FragmentScope;
 import com.fong.play.di.module.AppInfoModule;
+import com.fong.play.ui.fragment.CategoryAppFragment;
 import com.fong.play.ui.fragment.GamesFragment;
 import com.fong.play.ui.fragment.TopListFragment;
 
@@ -18,4 +19,6 @@ public interface AppInfoComponent {
     void injectTopListFragment(TopListFragment fragment);
 
     void injectGamesFragment(GamesFragment fragment);
+
+    void injectCategoryAppFragment(CategoryAppFragment fragment);
 }

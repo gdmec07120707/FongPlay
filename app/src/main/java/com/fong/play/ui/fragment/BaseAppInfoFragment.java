@@ -27,7 +27,7 @@ public  abstract  class BaseAppInfoFragment extends ProgressFragment<AppInfoPres
 
     private AppInfoAdapter mAdapter;
 
-    private int page =0;
+    int page =0;
 
     @Override
     public void init() {
@@ -40,7 +40,7 @@ public  abstract  class BaseAppInfoFragment extends ProgressFragment<AppInfoPres
         return R.layout.template_recycler_view;
     }
 
-    private void initRecyclerView(){
+    public void initRecyclerView(){
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) );
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST);
         mRecyclerView.addItemDecoration(itemDecoration);

@@ -13,12 +13,14 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.fong.play.R;
+import com.fong.play.common.Constant;
 import com.fong.play.data.bean.Category;
 import com.fong.play.di.component.AppComponent;
 import com.fong.play.di.component.DaggerCategoryComponent;
 import com.fong.play.di.module.CategoryModule;
 import com.fong.play.presenter.CategoryPresenter;
 import com.fong.play.presenter.constract.CategoryContract;
+import com.fong.play.ui.activity.CategoryAppActivity;
 import com.fong.play.ui.adapter.CategoryAdapter;
 import com.fong.play.ui.widget.DividerItemDecoration;
 
@@ -76,6 +78,15 @@ public class CategoryFragment extends ProgressFragment<CategoryPresenter> implem
         mAdapter = new CategoryAdapter();
 
         mRecycleView.setAdapter(mAdapter);
+
+        mRecycleView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(getActivity(), CategoryAppActivity.class);
+                intent.putExtra(Constant.CATEGORY,mAdapter.getData().get(position));
+                startActivity(intent);
+            }
+        });
 
     }
 }

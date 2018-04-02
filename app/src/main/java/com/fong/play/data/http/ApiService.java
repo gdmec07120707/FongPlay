@@ -14,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 import rx.Observer;
@@ -27,20 +28,29 @@ public interface ApiService {
     public static final String BASE_URL = "http://112.124.22.238:8081/course_api/cniaoplay/";
 
     @GET("featured2")
-    public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParams);
+    Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParams);
 
     @GET("index")
-    public  Observable<BaseBean<IndexBean>> getIndex();
+    Observable<BaseBean<IndexBean>> getIndex();
 
     @GET("toplist")
-    public Observable<BaseBean<PageBean<AppInfo>>> getTopList(@Query("page") int page);
+    Observable<BaseBean<PageBean<AppInfo>>> getTopList(@Query("page") int page);
 
     @GET("game")
-    public Observable<BaseBean<PageBean<AppInfo>>> getGames(@Query("page") int page);
+    Observable<BaseBean<PageBean<AppInfo>>> getGames(@Query("page") int page);
 
     @POST("login")
-    public Observable<BaseBean<LoginBean>> login(@Body LoginRequestBean param);
+    Observable<BaseBean<LoginBean>> login(@Body LoginRequestBean param);
 
     @GET("category")
-    public Observable<BaseBean<List<Category>>> getCategory();
+    Observable<BaseBean<List<Category>>> getCategory();
+
+    @GET("category/featured/{categoryid}")
+    Observable<BaseBean<PageBean<AppInfo>>> getFeaturedAppsByCategory(@Path("categoryid") int categoryId, @Query("page") int page);
+
+    @GET("category/toplist/{categoryid}")
+    Observable<BaseBean<PageBean<AppInfo>>> getTopListAppsByCategory(@Path("categoryid") int categoryid, @Query("page") int page);
+
+    @GET("category/newlist/{categoryid}")
+    Observable<BaseBean<PageBean<AppInfo>>> getNewListAppsByCategory(@Path("categoryid") int categoryid, @Query("page") int page);
 }

@@ -1,9 +1,11 @@
 package com.fong.play.common.rx.subscriber;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.fong.play.common.exception.BaseException;
 import com.fong.play.common.rx.RxErrorHnadler;
+import com.fong.play.ui.activity.LoginActivity;
 import com.orhanobut.logger.Logger;
 
 
@@ -31,6 +33,15 @@ public abstract class ErrorHanderSubscriber<T> extends DefaultSubscriber<T> {
             Logger.d(e.getMessage());
         } else {
             mErrorHandler.showErrorMessage(baseException);
+            //判断Token失效
+            if(baseException.getCode() == BaseException.ERROR_TOKEN){
+                toLogin();
+            }
         }
+    }
+
+    private void toLogin() {
+        Intent intent = new Intent(mContext, LoginActivity.class);
+        mContext.startActivity(intent);
     }
 }

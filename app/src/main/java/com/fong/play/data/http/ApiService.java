@@ -2,10 +2,13 @@ package com.fong.play.data.http;
 
 import com.fong.play.data.bean.AppInfo;
 import com.fong.play.data.bean.BaseBean;
+import com.fong.play.data.bean.Category;
 import com.fong.play.data.bean.IndexBean;
 import com.fong.play.data.bean.LoginBean;
 import com.fong.play.data.bean.PageBean;
 import com.fong.play.data.bean.requestbean.LoginRequestBean;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,4 +40,7 @@ public interface ApiService {
 
     @POST("login")
     public Observable<BaseBean<LoginBean>> login(@Body LoginRequestBean param);
+
+    @GET("category")
+    public Observable<BaseBean<List<Category>>> getCategory();
 }

@@ -30,6 +30,8 @@ import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
+import com.orhanobut.logger.Logger;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -153,8 +155,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initUserHeadView(User user){
-        ImageLoader.load(user.getLogo_url(),mUserHeadView);
-        //Glide.with(this).load(user.getLogo_url()).into(mUserHeadView);//.transform(new GlideCircleTransform(this))
+        Logger.d("头像地址："+user.getLogo_url());
+        Glide.with(this).load("http:"+user.getLogo_url()).transform(new GlideCircleTransform(this)).into(mUserHeadView);
         mTextUserName.setText(user.getUsername());
     }
 

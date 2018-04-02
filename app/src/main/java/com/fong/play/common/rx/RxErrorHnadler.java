@@ -42,7 +42,7 @@ public class RxErrorHnadler {
             exception.setCode(BaseException.SOCKET_TIMEOUT_ERROR);
         }else if(e instanceof SocketException){
             exception.setCode(BaseException.SOCKET_ERROR);
-        }else{
+        } else{
             exception.setCode(BaseException.UNKNOWN_ERROR);
         }
         exception.setDisplayMessage(ErrorMessageFactory.create(context,exception.getCode()));

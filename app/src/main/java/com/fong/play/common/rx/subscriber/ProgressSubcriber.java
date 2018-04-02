@@ -42,6 +42,7 @@ public abstract class ProgressSubcriber<T> extends ErrorHanderSubscriber<T> {
 
     @Override
     public void onError(Throwable e) {
+        e.printStackTrace();
         BaseException baseException = mErrorHandler.handlerError(e);
         mView.showError(baseException.getDisplayMessage());
     }

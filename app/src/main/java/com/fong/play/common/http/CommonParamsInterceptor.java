@@ -1,8 +1,10 @@
 package com.fong.play.common.http;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.fong.play.common.Constant;
+import com.fong.play.common.utils.ACache;
 import com.fong.play.common.utils.DensityUtil;
 import com.fong.play.common.utils.DeviceUtils;
 import com.google.gson.Gson;
@@ -54,6 +56,9 @@ public class CommonParamsInterceptor implements Interceptor {
             commomParamsMap.put(Constant.RESOLUTION, DensityUtil.getScreenW(mContext) + "*" + DensityUtil.getScreenH(mContext));
             commomParamsMap.put(Constant.SDK, DeviceUtils.getBuildVersionSDK() + "");
             commomParamsMap.put(Constant.DENSITY_SCALE_FACTOR, mContext.getResources().getDisplayMetrics().density + "");
+
+            String token = ACache.get(mContext).getAsString(Constant.TOKEN);
+            commomParamsMap.put(Constant.TOKEN, TextUtils.isEmpty(token) ? "" : token);
 
             String method = request.method();
             if (method.equals("GET")) {
@@ -110,11 +115,14 @@ public class CommonParamsInterceptor implements Interceptor {
                     body.writeTo(buffer);
 
                     String oldJsonParams = buffer.readUtf8();
-
-                    rootMap = mGson.fromJson(oldJsonParams, HashMap.class); // 原始参数
-                    rootMap.put("publicParams", commomParamsMap); // 重新组装
-                    String newJsonParams = mGson.toJson(rootMap); // {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
-                    request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
+                    if (!TextUtils.isEmpty(oldJsonParams)) {
+                        rootMap = mGson.fromJson(oldJsonParams, HashMap.class); // 原始参数
+                        if (rootMap != null) {
+                            rootMap.put("publicParams", commomParamsMap); // 重新组装
+                            String newJsonParams = mGson.toJson(rootMap); // {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
+                            request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
+                        }
+                    }
                 }
             }
         } catch (JsonSyntaxException e) {

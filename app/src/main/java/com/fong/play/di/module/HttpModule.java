@@ -32,7 +32,7 @@ public class HttpModule {
     @Singleton
     public OkHttpClient getOkHttpClient(Application application, Gson gson){
         // log用拦截器
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLogger());
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();//new HttpLogger()
 
         // 开发模式记录整个body，否则只记录基本信息如返回200，http协议版本等
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);

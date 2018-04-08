@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     defaultConfig {
         applicationId "com.fong.play"
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,28 +26,31 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["design"]
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'com.android.support:design:26.1.0'
+
 
     //rxjava
-    compile 'io.reactivex:rxjava:1.1.6'
-    compile 'io.reactivex:rxandroid:1.2.1'
+    compile rootProject.ext.dependencies["rxjava"]
+    compile rootProject.ext.dependencies["rxandroid"]
     //retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile rootProject.ext.dependencies['retrofit'] // 需要升级
+    compile rootProject.ext.dependencies['retrofit-adapter-rxjava']// 需要升级
+    compile rootProject.ext.dependencies['retrofit-converter-gson']
     // okHttp
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile rootProject.ext.dependencies["okhttp"]  // 需要升级
+    compile rootProject.ext.dependencies["okhttp-logging-interceptor"]
+
+
     //picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
     //butterknife
-    compile 'com.jakewharton:butterknife:8.6.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile rootProject.ext.dependencies['butterknife']
+    annotationProcessor rootProject.ext.dependencies['butterknife-compiler']
     //dagger2
     annotationProcessor 'com.google.dagger:dagger-compiler:2.0.2' //指定注解处理器
     compile 'com.google.dagger:dagger:2.0.2'  //dagger公用api
@@ -63,7 +66,7 @@ dependencies {
     //对话框
     compile 'com.github.f0ris.sweetalert:library:1.5.1'
     /*动态权限*/
-    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.8.2@aar' //降级
     //Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
@@ -71,8 +74,13 @@ dependencies {
     //适配器
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
-    compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
+    //rxbinding
+    compile rootProject.ext.dependencies["rxbinding"] // 需要升级
 
-    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
+    //compile 'com.hwangjr.rxbus:rxbus:1.0.5'
+
+    compile 'com.ms-square:expandableTextView:0.1.4'
+
+    compile 'com.zoonref:simple-view-behavior:1.0'
 
 }

@@ -1,15 +1,17 @@
 package com.fong.play.presenter;
 
 import com.fong.play.common.Constant;
+import com.fong.play.common.rx.RxBus;
 import com.fong.play.common.rx.RxHttpResponseCompat;
 import com.fong.play.common.rx.subscriber.ErrorHanderSubscriber;
 import com.fong.play.common.utils.ACache;
 import com.fong.play.common.utils.VerificationUtils;
 import com.fong.play.data.bean.LoginBean;
 import com.fong.play.presenter.constract.LoginContract;
-import com.hwangjr.rxbus.RxBus;
 
 import javax.inject.Inject;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by FANGDINGJIE
@@ -35,7 +37,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
                 .compose(RxHttpResponseCompat.<LoginBean>compatResult())
                 .subscribe(new ErrorHanderSubscriber<LoginBean>(mContext) {
                     @Override
-                    public void onCompleted() {
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
                     }
 
@@ -43,7 +50,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
                     public void onNext(LoginBean loginBean) {
                         mView.showResult(loginBean);
                         saveSuser(loginBean);
-                        RxBus.get().post(loginBean.getUser());
+
+                        RxBus.getDefault().post(loginBean.getUser());
                     }
                 });
     }

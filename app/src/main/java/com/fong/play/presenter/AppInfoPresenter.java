@@ -10,10 +10,14 @@ import com.fong.play.data.bean.BaseBean;
 import com.fong.play.data.bean.PageBean;
 import com.fong.play.presenter.constract.AppInfoContract;
 
+import org.reactivestreams.Subscriber;
+
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by FANGDINGJIE
@@ -38,7 +42,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
 
     public void request(int type,int page,int categoryId,int flagType){
-        Subscriber subscriber = null;
+        Observer subscriber = null;
 
         if (page == 0) {
             //显示第一页
@@ -52,9 +56,10 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
             //加载更多
             subscriber = new ErrorHanderSubscriber<PageBean<AppInfo>>(mContext) {
                 @Override
-                public void onCompleted() {
+                public void onComplete() {
                     mView.onLoadMoreComplete();
                 }
+
 
                 @Override
                 public void onNext(PageBean<AppInfo> appInfoPageBean) {
@@ -88,7 +93,15 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
     }
 
 
-    private Observable<BaseBean<PageBean<AppInfo>>> getObservable(int page, int type,int categoryId,int flagType) {
+    /**
+     * 判断加载数据类别
+     * @param page
+     * @param type
+     * @param categoryId
+     * @param flagType
+     * @return
+     */
+    private Observable<BaseBean<PageBean<AppInfo>>> getObservable(int page, int type, int categoryId, int flagType) {
         switch (type) {
             case TOP_LIST:
                 return mModel.getTopList(page);

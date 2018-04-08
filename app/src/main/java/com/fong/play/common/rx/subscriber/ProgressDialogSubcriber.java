@@ -5,6 +5,8 @@ import android.content.Context;
 import com.fong.play.common.rx.RxErrorHnadler;
 import com.fong.play.common.utils.ProgressDialogHandler;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by FANGDINGJIE
  * 2018/3/23.
@@ -13,6 +15,7 @@ import com.fong.play.common.utils.ProgressDialogHandler;
 public abstract class ProgressDialogSubcriber<T> extends ErrorHanderSubscriber<T> implements ProgressDialogHandler.OnProgressCancelListener{
 
     private ProgressDialogHandler mProgressDialogHandler;
+    private Disposable mDisponsable;
 
     public ProgressDialogSubcriber(Context context) {
         super(context);
@@ -25,12 +28,12 @@ public abstract class ProgressDialogSubcriber<T> extends ErrorHanderSubscriber<T
 
     @Override
     public void onCancelProgress() {
-        unsubscribe();
+        mDisponsable.dispose();
     }
 
     @Override
-    public void onStart() {
-
+    public void onSubscribe(Disposable d) {
+        mDisponsable = d;
         if(isShowProgressDialog()){
             this.mProgressDialogHandler.showProgressDialog();
         }
@@ -38,7 +41,7 @@ public abstract class ProgressDialogSubcriber<T> extends ErrorHanderSubscriber<T
     }
 
     @Override
-    public void onCompleted() {
+    public void onComplete() {
 
 
 

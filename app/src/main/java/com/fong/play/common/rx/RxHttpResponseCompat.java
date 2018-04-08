@@ -4,11 +4,15 @@ import com.fong.play.common.exception.ApiException;
 import com.fong.play.common.exception.BaseException;
 import com.fong.play.data.bean.BaseBean;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by FANGDINGJIE
@@ -17,22 +21,23 @@ import rx.schedulers.Schedulers;
 
 public class RxHttpResponseCompat {
 
-    public static <T> Observable.Transformer<BaseBean<T>, T> compatResult() {
-        return new Observable.Transformer<BaseBean<T>, T>() {
+    public static <T> ObservableTransformer<BaseBean<T>, T> compatResult() {
+        return new ObservableTransformer<BaseBean<T>, T>() {
             @Override
-            public Observable<T> call(Observable<BaseBean<T>> baseBeanObservable) {
-                return baseBeanObservable.flatMap(new Func1<BaseBean<T>, Observable<T>>() {
+            public ObservableSource<T> apply(Observable<BaseBean<T>> upstream) {
+                return upstream.flatMap(new Function<BaseBean<T>, ObservableSource<T>>() {
                     @Override
-                    public Observable<T> call(final BaseBean<T> tBaseBean) {
-
+                    public ObservableSource<T> apply(final BaseBean<T> tBaseBean) throws Exception {
                         if (tBaseBean.success()) {
-                            return Observable.create(new Observable.OnSubscribe<T>() {
+
+
+                            return Observable.create(new ObservableOnSubscribe<T>() {
                                 @Override
-                                public void call(Subscriber<? super T> subscriber) {
+                                public void subscribe(ObservableEmitter<T> subscriber) throws Exception {
+
                                     try {
                                         subscriber.onNext(tBaseBean.getData());
-                                        subscriber.onCompleted();
-                                        //subscriber.onError(new ApiException(BaseException.HTTP_ERROR,"Http错误"));
+                                        subscriber.onComplete();
                                     } catch (Exception e) {
                                         subscriber.onError(e);
                                     }
@@ -44,12 +49,7 @@ public class RxHttpResponseCompat {
                     }
                 }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
             }
-
-
         };
-
-
     }
-
 
 }

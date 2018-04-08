@@ -6,7 +6,8 @@ import com.fong.play.data.bean.requestbean.LoginRequestBean;
 import com.fong.play.data.http.ApiService;
 import com.fong.play.presenter.constract.LoginContract;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by FANGDINGJIE

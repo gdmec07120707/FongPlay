@@ -5,6 +5,8 @@ import android.content.Context;
 import com.fong.play.common.exception.BaseException;
 import com.fong.play.ui.BaseView;
 
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * 菜鸟窝http://www.cniao5.com 一个高端的互联网技能学习平台
@@ -29,14 +31,14 @@ public abstract class ProgressSubcriber<T> extends ErrorHanderSubscriber<T> {
     }
 
     @Override
-    public void onStart() {
+    public void onSubscribe(Disposable d) {
         if (isShowProgress()) {
             mView.showLoading();
         }
     }
 
     @Override
-    public void onCompleted() {
+    public void onComplete() {
         mView.dismissLoading();
     }
 

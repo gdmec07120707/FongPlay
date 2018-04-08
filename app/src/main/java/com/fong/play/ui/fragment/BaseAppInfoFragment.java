@@ -1,18 +1,24 @@
 package com.fong.play.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.fong.play.R;
 import com.fong.play.data.bean.AppInfo;
 import com.fong.play.data.bean.PageBean;
 import com.fong.play.presenter.AppInfoPresenter;
 import com.fong.play.presenter.constract.AppInfoContract;
+import com.fong.play.ui.activity.AppDetailActivity;
 import com.fong.play.ui.adapter.AppInfoAdapter;
 import com.fong.play.ui.widget.DividerItemDecoration;
 
 import butterknife.BindView;
+
+import static com.fong.play.common.Constant.APPINFO;
 
 /**
  * Created by FANGDINGJIE
@@ -48,6 +54,15 @@ public  abstract  class BaseAppInfoFragment extends ProgressFragment<AppInfoPres
 
         mAdapter.setOnLoadMoreListener(this);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                mApplication.setCacheView(view);
+                Intent intent = new Intent(getActivity(), AppDetailActivity.class);
+                intent.putExtra(APPINFO,mAdapter.getItem(position));
+                startActivity(intent);
+            }
+        });
 
     }
 

@@ -14,16 +14,18 @@ import com.fong.play.di.component.DaggerLoginComponent;
 import com.fong.play.di.module.LoginModule;
 import com.fong.play.presenter.LoginPresenter;
 import com.fong.play.presenter.constract.LoginContract;
-import com.jakewharton.rxbinding.view.RxView;
-import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding2.InitialValueObservable;
+import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func2;
+import io.reactivex.Observable;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+
 
 /**
  * Created by FANGDINGJIE
@@ -72,10 +74,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                         .color(getResources().getColor(R.color.md_white_1000))
         );
 
-        Observable<CharSequence> obMobi = RxTextView.textChanges(txtMobi);
-        Observable<CharSequence> obPassword = RxTextView.textChanges(txtPassword);
+        InitialValueObservable<CharSequence> obMobi = RxTextView.textChanges(txtMobi);
+        InitialValueObservable<CharSequence> obPassword = RxTextView.textChanges(txtPassword);
 
-        Observable
+       /* Observable
                 .combineLatest(obMobi, obPassword, new Func2<CharSequence, CharSequence, Boolean>() {
                     @Override
                     public Boolean call(CharSequence charSequence, CharSequence charSequence2) {
@@ -87,12 +89,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                     public void call(Boolean aBoolean) {
                         RxView.enabled(btnLogin).call(aBoolean);
                     }
-                });
+                });*/
+        Observable.combineLatest(obMobi, obPassword, new BiFunction<CharSequence, CharSequence, Boolean>() {
+            @Override
+            public Boolean apply(@NonNull CharSequence mobi, @NonNull CharSequence pwd) throws Exception {
+                return isPhoneValid(mobi.toString()) && isPasswordValid(pwd.toString());
+            }
+        }).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(@NonNull Boolean aBoolean) throws Exception {
+                RxView.enabled(btnLogin).accept(aBoolean);
+            }
+        });
+
 
         RxView.clicks(btnLogin)
-                .subscribe(new Action1<Void>() {
+                .subscribe(new Consumer<Object>() {
                     @Override
-                    public void call(Void aVoid) {
+                    public void accept(@NonNull Object o) throws Exception{
                        mPresenter.login(txtMobi.getText().toString().trim(),txtPassword.getText().toString().trim());
                     }
                 });

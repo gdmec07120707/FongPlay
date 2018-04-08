@@ -7,7 +7,8 @@ import com.fong.play.ui.BaseView;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by FANGDINGJIE

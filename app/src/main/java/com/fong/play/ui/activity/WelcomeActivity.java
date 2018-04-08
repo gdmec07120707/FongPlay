@@ -15,9 +15,7 @@ import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func0;
+
 
 /**
  * Created by FANGDINGJIE

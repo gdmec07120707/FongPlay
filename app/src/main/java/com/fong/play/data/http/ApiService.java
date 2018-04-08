@@ -10,14 +10,14 @@ import com.fong.play.data.bean.requestbean.LoginRequestBean;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
-import rx.Observer;
+
 
 /**
  * Created by FANGDINGJIE
@@ -53,4 +53,8 @@ public interface ApiService {
 
     @GET("category/newlist/{categoryid}")
     Observable<BaseBean<PageBean<AppInfo>>> getNewListAppsByCategory(@Path("categoryid") int categoryid, @Query("page") int page);
+
+    @GET("app/{id}")
+    Observable<BaseBean<AppInfo>> getAppDetail(@Path("id") int id);
+
 }

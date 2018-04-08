@@ -8,6 +8,8 @@ import com.fong.play.common.rx.RxErrorHnadler;
 import com.fong.play.ui.activity.LoginActivity;
 import com.orhanobut.logger.Logger;
 
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by FANGDINGJIE
@@ -19,10 +21,17 @@ public abstract class ErrorHanderSubscriber<T> extends DefaultSubscriber<T> {
     protected RxErrorHnadler mErrorHandler = null;
     protected Context mContext;
 
+
+
     public ErrorHanderSubscriber(Context mContext) {
         this.mContext = mContext;
         mErrorHandler = new RxErrorHnadler(mContext);
         //this.mErrorHandler = mErrorHandler;
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
+
     }
 
     @Override

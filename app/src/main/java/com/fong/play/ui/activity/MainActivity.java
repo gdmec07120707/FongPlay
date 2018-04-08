@@ -22,12 +22,11 @@ import com.fong.play.common.Constant;
 import com.fong.play.common.font.Cniao5Font;
 import com.fong.play.common.imageloader.GlideCircleTransform;
 import com.fong.play.common.imageloader.ImageLoader;
+import com.fong.play.common.rx.RxBus;
 import com.fong.play.common.utils.ACache;
 import com.fong.play.data.bean.User;
 import com.fong.play.di.component.AppComponent;
 import com.fong.play.ui.adapter.ViewPagerAdapter;
-import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.orhanobut.logger.Logger;
@@ -35,6 +34,7 @@ import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity {
 
@@ -72,7 +72,12 @@ public class MainActivity extends BaseActivity {
     protected void init() {
 
 
-        RxBus.get().register(this);
+        RxBus.getDefault().toObservable(User.class).subscribe(new Consumer<User>() {
+            @Override
+            public void accept(User user) throws Exception {
+                initUserHeadView(user);
+            }
+        });
 
         initDrawerLayout();
 
@@ -160,14 +165,11 @@ public class MainActivity extends BaseActivity {
         mTextUserName.setText(user.getUsername());
     }
 
-    @Subscribe
-    public void getUser(User user){
-        initUserHeadView(user);
-    }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.get().unregister(this);
+
     }
 }

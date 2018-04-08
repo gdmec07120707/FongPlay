@@ -32,7 +32,7 @@ public class VerificationUtils {
     }
 
     public static boolean matcherPhoneNum(String value) {
-        String regex = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        String regex = "^((13[0-9])|(15[^4])|(18[0,1,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
         return testRegex(regex, value);
     }
 

@@ -28,6 +28,10 @@ public interface AppInfoContract {
 
     }
 
+    interface AppDetailView extends BaseView{
+        void showResult(AppInfo appInfo);
+    }
+
     /*interface Presenter extends BasePresenter {
         void requestData();
     }*/

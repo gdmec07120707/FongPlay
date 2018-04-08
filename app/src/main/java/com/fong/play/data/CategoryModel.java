@@ -9,7 +9,8 @@ import com.fong.play.presenter.constract.CategoryContract;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by FANGDINGJIE

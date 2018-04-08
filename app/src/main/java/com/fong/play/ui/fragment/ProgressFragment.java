@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fong.play.AppApplication;
 import com.fong.play.R;
@@ -34,7 +35,7 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
     private View mViewEmpty;
     private Unbinder mUnbinder;
     private TextView mTextError;
-    private AppApplication mApplication;
+    protected AppApplication mApplication;
 
 
     @Inject
@@ -160,5 +161,9 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
         if (mUnbinder != Unbinder.EMPTY) {
             mUnbinder.unbind();
         }
+    }
+
+    protected void showToast(String msg){
+        Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
     }
 }

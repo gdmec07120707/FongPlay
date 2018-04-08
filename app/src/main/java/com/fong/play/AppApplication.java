@@ -2,6 +2,7 @@ package com.fong.play;
 
 import android.app.Application;
 import android.content.Context;
+import android.view.View;
 
 import com.fong.play.common.utils.LogUtil;
 import com.fong.play.di.component.AppComponent;
@@ -18,6 +19,8 @@ public class AppApplication extends Application {
 
     private AppComponent mAppComponent;
 
+    private View mCacheView;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -32,6 +35,14 @@ public class AppApplication extends Application {
 
     public static AppApplication get(Context context){
         return (AppApplication) context.getApplicationContext();
+    }
+
+    public View getCacheView() {
+        return mCacheView;
+    }
+
+    public void setCacheView(View mCacheView) {
+        this.mCacheView = mCacheView;
     }
 
     public AppComponent getAppComponent(){

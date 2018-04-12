@@ -33,7 +33,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-
     //rxjava
     compile rootProject.ext.dependencies["rxjava"]
     compile rootProject.ext.dependencies["rxandroid"]
@@ -44,7 +43,6 @@ dependencies {
     // okHttp
     compile rootProject.ext.dependencies["okhttp"]  // 需要升级
     compile rootProject.ext.dependencies["okhttp-logging-interceptor"]
-
 
     //picasso
     compile 'com.squareup.picasso:picasso:2.5.2'

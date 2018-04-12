@@ -24,13 +24,21 @@ import com.fong.play.common.imageloader.GlideCircleTransform;
 import com.fong.play.common.imageloader.ImageLoader;
 import com.fong.play.common.rx.RxBus;
 import com.fong.play.common.utils.ACache;
+import com.fong.play.data.bean.FragmentInfo;
 import com.fong.play.data.bean.User;
 import com.fong.play.di.component.AppComponent;
 import com.fong.play.ui.adapter.ViewPagerAdapter;
+import com.fong.play.ui.fragment.CategoryFragment;
+import com.fong.play.ui.fragment.GamesFragment;
+import com.fong.play.ui.fragment.RecommendFragment;
+import com.fong.play.ui.fragment.TopListFragment;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.orhanobut.logger.Logger;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +60,8 @@ public class MainActivity extends BaseActivity {
     private View headerView;
     private ImageView mUserHeadView;
     private TextView mTextUserName;
+
+    private List<FragmentInfo> mFragments = new ArrayList<>(4);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +100,7 @@ public class MainActivity extends BaseActivity {
         dlMian.addDrawerListener(mActionBarDrawerToggle);
 
 
-        ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),initFragments());
         vpMain.setAdapter(mViewPagerAdapter);
         tlMian.setupWithViewPager(vpMain);
     }
@@ -116,6 +126,9 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_logout:
                         logout();
                         break;
+                    case R.id.menu_download_manager:
+                        startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
+                        break;
                 }
                 return false;
             }
@@ -131,6 +144,14 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private List<FragmentInfo> initFragments() {
+        mFragments.add(new FragmentInfo("推荐", RecommendFragment.class));
+        mFragments.add(new FragmentInfo("排行", TopListFragment.class));
+        mFragments.add(new FragmentInfo("游戏", GamesFragment.class));
+        mFragments.add(new FragmentInfo("分类", CategoryFragment.class));
+        return mFragments;
     }
 
     /**

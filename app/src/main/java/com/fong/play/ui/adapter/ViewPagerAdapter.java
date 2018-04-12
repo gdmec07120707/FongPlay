@@ -19,20 +19,15 @@ import java.util.List;
  */
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
-    private List<FragmentInfo> mFragments = new ArrayList<>(4);
+    private List<FragmentInfo> mFragments ;
 
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm,List<FragmentInfo> fragments) {
         super(fm);
-        initFragments();
+       this.mFragments = fragments;
     }
 
-    private void initFragments() {
-        mFragments.add(new FragmentInfo("推荐", RecommendFragment.class));
-        mFragments.add(new FragmentInfo("排行", TopListFragment.class));
-        mFragments.add(new FragmentInfo("游戏", GamesFragment.class));
-        mFragments.add(new FragmentInfo("分类", CategoryFragment.class));
-    }
+
 
     @Override
     public Fragment getItem(int position) {

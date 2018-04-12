@@ -1,5 +1,6 @@
 package com.fong.play.ui.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -9,6 +10,7 @@ import com.fong.play.common.rx.RxHttpResponseCompat;
 import com.fong.play.common.rx.RxSchedulers;
 import com.fong.play.common.utils.ACache;
 import com.fong.play.common.utils.AppUtils;
+import com.fong.play.common.utils.PackageUtils;
 import com.fong.play.common.utils.PermissionUtil;
 import com.fong.play.data.bean.AppDownloadInfo;
 import com.fong.play.data.bean.AppInfo;
@@ -24,8 +26,10 @@ import io.reactivex.functions.Function;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import zlc.season.rxdownload2.RxDownload;
+import zlc.season.rxdownload2.entity.DownloadBean;
 import zlc.season.rxdownload2.entity.DownloadEvent;
 import zlc.season.rxdownload2.entity.DownloadFlag;
+import zlc.season.rxdownload2.entity.DownloadRecord;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -48,6 +52,12 @@ public class DownloadButtonConntroller {
         }
     }
 
+
+
+    public void handClick(final DownloadProgressButton btn,DownloadRecord record){
+        AppInfo info = downloadRecord2AppInfo(record);
+        receiveDownloadStatus(record.getUrl()).subscribe(new DownloadConsumer(btn,info));
+    }
 
     public void handClick(final DownloadProgressButton btn, final AppInfo mAppInfo) {
         if (mApi == null) {
@@ -176,6 +186,7 @@ public class DownloadButtonConntroller {
      * @param btn
      * @param mAppInfo
      */
+    @SuppressLint("CheckResult")
     private void bindClick(final DownloadProgressButton btn, final AppInfo mAppInfo) {
         RxView.clicks(btn).subscribe(new Consumer<Object>() {
             @Override
@@ -210,6 +221,7 @@ public class DownloadButtonConntroller {
      * @param btn
      * @param mAppInfo
      */
+    @SuppressLint("CheckResult")
     private void startDownload(final DownloadProgressButton btn, final AppInfo mAppInfo) {
         PermissionUtil.requestPermisson(btn.getContext(), WRITE_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
@@ -236,8 +248,46 @@ public class DownloadButtonConntroller {
     }
 
     private void download(DownloadProgressButton btn, AppInfo info) {
-        mRxDownload.serviceDownload(info.getAppDownloadInfo().getDownloadUrl(), info.getReleaseKeyHash()).subscribe();
+
+
+        mRxDownload.serviceDownload(appInfo2DownloadBean(info)).subscribe();
         mRxDownload.receiveDownloadStatus(info.getAppDownloadInfo().getDownloadUrl()).subscribe(new DownloadConsumer(btn, info));
+    }
+
+
+    private DownloadBean appInfo2DownloadBean(AppInfo info){
+        DownloadBean downloadBean = new DownloadBean();
+        downloadBean.setUrl(info.getAppDownloadInfo().getDownloadUrl());
+        downloadBean.setSaveName(info.getReleaseKeyHash()+".apk");
+
+        downloadBean.setExtra1(info.getId()+ "");
+        downloadBean.setExtra2(info.getIcon());
+        downloadBean.setExtra3(info.getDisplayName());
+        downloadBean.setExtra4(info.getPackageName());
+        downloadBean.setExtra5(info.getReleaseKeyHash());
+        return downloadBean;
+    }
+
+    /**
+     * downloadRecord转化为AppInfo为了AppManager中的显示
+     * @param bean
+     * @return
+     */
+    public AppInfo downloadRecord2AppInfo(DownloadRecord bean) {
+        AppInfo info = new AppInfo();
+        info.setId(Integer.parseInt(bean.getExtra1()));
+        info.setIcon(bean.getExtra2());
+        info.setDisplayName(bean.getExtra3());
+        info.setPackageName(bean.getExtra4());
+        info.setReleaseKeyHash(bean.getExtra5());
+
+        AppDownloadInfo downloadInfo = new AppDownloadInfo();
+        downloadInfo.setDowanloadUrl(bean.getUrl());
+        info.setAppDownloadInfo(downloadInfo);
+
+        return info;
+
+
     }
 
     /**
@@ -267,7 +317,8 @@ public class DownloadButtonConntroller {
      */
     private void installApp(Context context, AppInfo mAppInfo) {
         String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + File.separator + mAppInfo.getReleaseKeyHash();
-        AppUtils.installApk(context, path);
+        //AppUtils.installApk(context, path);
+        PackageUtils.install(context,path);
     }
 
     interface API {

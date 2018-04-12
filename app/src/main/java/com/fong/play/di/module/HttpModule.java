@@ -45,7 +45,7 @@ public class HttpModule {
 //                .addInterceptor(new HeadInterceptor())
                 .addInterceptor(new CommonParamsInterceptor(application,gson))
                 //.addInterceptor(logging)
-                .addNetworkInterceptor(logging)
+                //.addNetworkInterceptor(logging)
                 // 连接超时时间设置
                 .connectTimeout(10, TimeUnit.SECONDS)
                 // 读取超时时间设置

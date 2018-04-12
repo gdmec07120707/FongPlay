@@ -25,4 +25,5 @@ public class Constant {
 
     public static final String CATEGORY = "category";
     public static final String APPINFO = "appinfo";
+    public static final String APK_DOWNLOAD_DIR = "apk_dl_dir";
 }

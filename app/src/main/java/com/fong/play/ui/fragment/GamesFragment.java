@@ -29,7 +29,7 @@ public class GamesFragment extends BaseAppInfoFragment {
 
     @Override
     public AppInfoAdapter buildAdapter() {
-        return AppInfoAdapter.builder().showBrief(false).showCategoryName(true).showPosition(true).build();
+        return AppInfoAdapter.builder().showBrief(false).showCategoryName(true).showPosition(true).rxDownload(mRxDownload).build();
     }
 
     @Override

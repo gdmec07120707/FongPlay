@@ -16,7 +16,10 @@ import com.fong.play.ui.activity.AppDetailActivity;
 import com.fong.play.ui.adapter.AppInfoAdapter;
 import com.fong.play.ui.widget.DividerItemDecoration;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import zlc.season.rxdownload2.RxDownload;
 
 import static com.fong.play.common.Constant.APPINFO;
 
@@ -30,6 +33,9 @@ public  abstract  class BaseAppInfoFragment extends ProgressFragment<AppInfoPres
 
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
+
+    @Inject
+    RxDownload mRxDownload;
 
     private AppInfoAdapter mAdapter;
 

@@ -13,7 +13,9 @@ import com.fong.play.R;
 import com.fong.play.data.bean.FragmentInfo;
 import com.fong.play.di.component.AppComponent;
 import com.fong.play.ui.adapter.ViewPagerAdapter;
+import com.fong.play.ui.fragment.DownloadedFragment;
 import com.fong.play.ui.fragment.DownloadingFragment;
+import com.fong.play.ui.fragment.InstalledAppFragment;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
@@ -82,8 +84,8 @@ public class AppManagerActivity extends BaseActivity {
     private List<FragmentInfo> initFragment() {
         List<FragmentInfo> mFragments = new ArrayList<>();
         mFragments.add(new FragmentInfo("下载",DownloadingFragment.class));
-        mFragments.add(new FragmentInfo("下载",DownloadingFragment.class));
-        mFragments.add(new FragmentInfo("下载",DownloadingFragment.class));
+        mFragments.add(new FragmentInfo("已完成",DownloadedFragment.class));
+        mFragments.add(new FragmentInfo("已安装",InstalledAppFragment.class));
         return  mFragments;
     }
 

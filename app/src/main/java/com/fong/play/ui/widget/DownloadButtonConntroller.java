@@ -317,7 +317,7 @@ public class DownloadButtonConntroller {
      */
     private void installApp(Context context, AppInfo mAppInfo) {
         String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + File.separator + mAppInfo.getReleaseKeyHash();
-        //AppUtils.installApk(context, path);
+        AppUtils.installApk(context, path);
         PackageUtils.install(context,path);
     }
 

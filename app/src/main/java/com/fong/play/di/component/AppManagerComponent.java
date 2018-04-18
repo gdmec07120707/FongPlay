@@ -4,8 +4,10 @@ import com.fong.play.di.FragmentScope;
 import com.fong.play.di.module.AppInfoModule;
 import com.fong.play.di.module.AppManagerModule;
 import com.fong.play.ui.fragment.CategoryAppFragment;
+import com.fong.play.ui.fragment.DownloadedFragment;
 import com.fong.play.ui.fragment.DownloadingFragment;
 import com.fong.play.ui.fragment.GamesFragment;
+import com.fong.play.ui.fragment.InstalledAppFragment;
 import com.fong.play.ui.fragment.TopListFragment;
 
 import dagger.Component;
@@ -19,5 +21,9 @@ import dagger.Component;
 public interface AppManagerComponent {
 
     void injectDownloading(DownloadingFragment fragment);
+
+    void injectDownloaded(DownloadedFragment fragment);
+
+    void injectInstalled(InstalledAppFragment fragment);
 
 }

@@ -29,11 +29,11 @@ import zlc.season.rxdownload2.entity.DownloadRecord;
  * @date
  */
 
-public class AppManagerAdapter extends BaseQuickAdapter<DownloadRecord, BaseViewHolder> {
+public class DownloadingAdapter extends BaseQuickAdapter<DownloadRecord, BaseViewHolder> {
 
     private DownloadButtonConntroller mDownloadController;
 
-    public AppManagerAdapter(RxDownload mRxDownload) {
+    public DownloadingAdapter(RxDownload mRxDownload) {
         super(R.layout.template_app_downloading);
         mDownloadController = new DownloadButtonConntroller(mRxDownload);
     }

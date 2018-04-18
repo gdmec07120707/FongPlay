@@ -11,33 +11,33 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-public class DownloadedFragment extends  AppManagerFragment{
+public class InstalledAppFragment extends AppManagerFragment {
+
     private AndroidApkAdapter mAdapter;
 
+    @Override
+    public void init() {
+        super.init();
+        mPresenter.getInstalledApps();
+    }
+
+    @Override
+    protected RecyclerView.Adapter setAdapter() {
+        mAdapter = new AndroidApkAdapter(AndroidApkAdapter.FLAG_APP);
+        return mAdapter;
+    }
+
+    @Override
+    public void showApp(List<AndroidApk> apps) {
+        Logger.d("*************"+apps.size());
+        mAdapter.addData(apps);
+    }
 
     @Override
     public void setupAcitivtyComponent(AppComponent appComponent) {
         DaggerAppManagerComponent.builder()
                 .appComponent(appComponent)
                 .appManagerModule(new AppManagerModule(this))
-                .build().injectDownloaded(this);
-    }
-
-    @Override
-    public void init() {
-        super.init();
-        mPresenter.getLocalApks();
-    }
-
-    @Override
-    protected RecyclerView.Adapter setAdapter() {
-        mAdapter = new AndroidApkAdapter(AndroidApkAdapter.FLAG_APK);
-        return mAdapter;
-    }
-
-    @Override
-    public void showApp(List<AndroidApk> apps) {
-        Logger.d(apps.size()+"======");
-        mAdapter.addData(apps);
+                .build().injectInstalled(this);
     }
 }

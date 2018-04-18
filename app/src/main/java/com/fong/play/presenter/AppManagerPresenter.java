@@ -1,5 +1,6 @@
 package com.fong.play.presenter;
 
+import com.fong.play.common.apkparest.AndroidApk;
 import com.fong.play.common.rx.RxSchedulers;
 import com.fong.play.common.rx.subscriber.ProgressSubcriber;
 import com.fong.play.presenter.constract.AppManagerContract;
@@ -21,6 +22,9 @@ public class AppManagerPresenter extends BasePresenter<AppManagerContract.IAppMa
         super(mModel, mView);
     }
 
+    /**
+     * 获取下载中的数据
+     */
     public void getDownloadingApps() {
         mModel.getDownloadRecord()
                 .compose(RxSchedulers.<List<DownloadRecord>>io_main())
@@ -32,9 +36,40 @@ public class AppManagerPresenter extends BasePresenter<AppManagerContract.IAppMa
                 });
     }
 
+
+    /**
+     * 获取已安装数据
+     */
+    public void getInstalledApps(){
+        mModel.getInstalledApp().compose(RxSchedulers.<List<AndroidApk>>io_main())
+                .subscribe(new ProgressSubcriber<List<AndroidApk>>(mContext,mView) {
+                    @Override
+                    public void onNext(List<AndroidApk> androidApks) {
+                        mView.showApp(androidApks);
+                    }
+                });
+
+    }
+
     public RxDownload getRxDownlad() {
         return mModel.getRxDownload();
     }
+
+
+    /**
+     * 获取本地apk文件
+     */
+    public void getLocalApks(){
+        mModel.getLocalApp().compose(RxSchedulers.<List<AndroidApk>>io_main())
+                .subscribe(new ProgressSubcriber<List<AndroidApk>>(mContext,mView) {
+                    @Override
+                    public void onNext(List<AndroidApk> androidApks) {
+                        mView.showApp(androidApks);
+                    }
+                });
+    }
+
+
 
 
     /**

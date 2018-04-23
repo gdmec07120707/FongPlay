@@ -4,6 +4,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.fong.play.R;
+import com.fong.play.common.apkparest.AndroidApk;
+import com.fong.play.data.bean.AppInfo;
+import com.fong.play.di.component.AppComponent;
+import com.fong.play.di.component.DaggerAppManagerComponent;
+import com.fong.play.di.module.AppManagerModule;
 import com.fong.play.presenter.AppManagerPresenter;
 import com.fong.play.presenter.constract.AppManagerContract;
 import com.fong.play.ui.widget.DividerItemDecoration;
@@ -25,6 +30,15 @@ public abstract class AppManagerFragment extends ProgressFragment<AppManagerPres
     }
 
     @Override
+    public void setupAcitivtyComponent(AppComponent appComponent) {
+        DaggerAppManagerComponent.builder()
+                .appComponent( appComponent )
+                .appManagerModule( new AppManagerModule( this ) )
+                .build().inject(this);
+
+    }
+
+    @Override
     public int setLayout() {
         return R.layout.template_recycler_view;
     }
@@ -40,6 +54,16 @@ public abstract class AppManagerFragment extends ProgressFragment<AppManagerPres
 
     @Override
     public void showDownloading(List<DownloadRecord> downloadRecords) {
+
+    }
+
+    @Override
+    public void showUpdateApps(List<AppInfo> appInfos) {
+
+    }
+
+    @Override
+    public void showApp(List<AndroidApk> apps) {
 
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
@@ -19,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:text="1."
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        android:visibility="gone" />
 
 
     <ImageView
@@ -29,6 +30,7 @@
         android:layout_width="64dp"
         android:layout_height="64dip"
         android:layout_centerVertical="true"
+
         android:layout_toRightOf="@+id/txt_position"
         android:src="@mipmap/ic_launcher" />
 
@@ -38,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/img_app_icon"
+
         android:orientation="vertical">
 
 
@@ -61,16 +64,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="@string/download"/>
+                android:text="@string/download" />
+
 
         </RelativeLayout>
+
 
         <TextView
             android:id="@+id/txt_category"
             style="@style/Text_Content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="社交" />
+            android:visibility="gone" />
 
 
         <TextView
@@ -78,10 +83,36 @@
             style="@style/Text_Content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="社交" />
+            android:visibility="gone" />
+
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            android:id="@+id/view_changelog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            app:animDuration="200"
+            app:maxCollapsedLines="1">
 
 
+            <TextView
+                android:id="@+id/expandable_text"
+                style="@style/Text_Content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+
+                />
+
+
+            <ImageButton
+                android:id="@+id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:background="@android:color/transparent"
+                android:padding="16dp" />
+
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
     </LinearLayout>
-
-
 </RelativeLayout>

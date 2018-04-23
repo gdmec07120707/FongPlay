@@ -3,6 +3,7 @@ package com.fong.play.di.component;
 import com.fong.play.di.FragmentScope;
 import com.fong.play.di.module.AppInfoModule;
 import com.fong.play.di.module.AppManagerModule;
+import com.fong.play.ui.fragment.AppManagerFragment;
 import com.fong.play.ui.fragment.CategoryAppFragment;
 import com.fong.play.ui.fragment.DownloadedFragment;
 import com.fong.play.ui.fragment.DownloadingFragment;
@@ -20,10 +21,10 @@ import dagger.Component;
 @Component(modules = AppManagerModule.class,dependencies = AppComponent.class)
 public interface AppManagerComponent {
 
-    void injectDownloading(DownloadingFragment fragment);
+    void inject(AppManagerFragment fragment);
 
-    void injectDownloaded(DownloadedFragment fragment);
+    /*void injectDownloaded(DownloadedFragment fragment);
 
-    void injectInstalled(InstalledAppFragment fragment);
+    void injectInstalled(InstalledAppFragment fragment);*/
 
 }

@@ -55,7 +55,9 @@ public class PackageUtils {
      * @return
      */
     public static final int install(Context context, String filePath) {
+        //检查不否有root
         if (PackageUtils.isSystemApplication(context) || ShellUtils.checkRootPermission()) {
+            //静默安装
             return installSilent(context, filePath);
         }
         else

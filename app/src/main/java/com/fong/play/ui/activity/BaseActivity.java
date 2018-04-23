@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.fong.play.AppApplication;
 import com.fong.play.di.component.AppComponent;
 import com.fong.play.presenter.BasePresenter;
+import com.fong.play.ui.BaseView;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 
 import javax.inject.Inject;
@@ -20,7 +21,7 @@ import butterknife.Unbinder;
  * 2018/3/20.
  */
 
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView{
     private Unbinder mUnbinder;
     protected AppApplication mAppApplication;
 
@@ -36,6 +37,22 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mAppApplication = (AppApplication) getApplication();
         setupActivityComponent(mAppApplication.getAppComponent());
         init();
+    }
+
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
     }
 
     @Override

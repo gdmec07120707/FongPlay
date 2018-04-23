@@ -18,14 +18,7 @@ public class DownloadingFragment extends AppManagerFragment {
     private DownloadingAdapter mAdapter;
 
 
-    @Override
-    public void setupAcitivtyComponent(AppComponent appComponent) {
-        DaggerAppManagerComponent.builder()
-                .appComponent(appComponent)
-                .appManagerModule(new AppManagerModule(this))
-                .build().injectDownloading(this);
 
-    }
 
     @Override
     public void init() {

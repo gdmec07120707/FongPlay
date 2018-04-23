@@ -4,9 +4,16 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@mipmap/menu_search"
+        android:icon="@mipmap/ic_search"
         android:title="@string/app_name"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_download"
+        android:title="下载"
+        app:actionProviderClass="com.fong.play.ui.widget.BadgeActionProvider"
+        app:showAsAction="ifRoom"
+        />
     <!--<item
         android:id="@+id/menu_app_update2"
         android:icon="@mipmap/ic_launcher"

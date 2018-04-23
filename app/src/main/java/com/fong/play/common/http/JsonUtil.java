@@ -1,10 +1,25 @@
 package com.fong.play.common.http;
+
+import com.google.gson.Gson;
+
 /**
  * Created by FANGDINGJIE
  * 2018/3/29.
  */
 
 public class JsonUtil {
+
+    public static String toJson(Object obj) {
+        Gson gson = new Gson();
+        return gson.toJson(obj);
+    }
+
+    public static <T> T fromJson(String str, Class<T> type) {
+        Gson gson = new Gson();
+        return gson.fromJson(str, type);
+    }
+
+
     /**
      * 格式化json字符串
      *

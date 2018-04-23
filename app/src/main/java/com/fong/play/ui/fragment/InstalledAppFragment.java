@@ -33,11 +33,5 @@ public class InstalledAppFragment extends AppManagerFragment {
         mAdapter.addData(apps);
     }
 
-    @Override
-    public void setupAcitivtyComponent(AppComponent appComponent) {
-        DaggerAppManagerComponent.builder()
-                .appComponent(appComponent)
-                .appManagerModule(new AppManagerModule(this))
-                .build().injectInstalled(this);
-    }
+
 }

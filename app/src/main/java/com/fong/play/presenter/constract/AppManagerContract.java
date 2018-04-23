@@ -1,6 +1,7 @@
 package com.fong.play.presenter.constract;
 
 import com.fong.play.common.apkparest.AndroidApk;
+import com.fong.play.data.bean.AppInfo;
 import com.fong.play.ui.BaseView;
 
 import java.util.List;
@@ -23,5 +24,7 @@ public class AppManagerContract {
         void showDownloading(List<DownloadRecord> downloadRecords);
 
         void showApp(List<AndroidApk> apps);
+
+        void showUpdateApps(List<AppInfo> appInfos);
     }
 }

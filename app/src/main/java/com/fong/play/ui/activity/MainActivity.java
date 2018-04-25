@@ -122,6 +122,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         dlMian.addDrawerListener( mActionBarDrawerToggle );
 
         MenuItem downloadMenuItem = mainToolbar.getMenu().findItem( R.id.action_download );
+        MenuItem mSearchItem = mainToolbar.getMenu().findItem( R.id.action_search);
         badgeActionProvider = (BadgeActionProvider) MenuItemCompat.getActionProvider( downloadMenuItem );
         badgeActionProvider.setIcon( DrawableCompat.wrap(
                 new IconicsDrawable( this, Cniao5Font.Icon.cniao_download )
@@ -132,6 +133,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onClick(View view) {
                 toAPPManagerActivity(badgeActionProvider.getBadgeNum()>0?2:0);
+            }
+        } );
+
+        mSearchItem.setOnMenuItemClickListener( new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if(menuItem.getItemId()==R.id.action_search){
+                    startActivity(new Intent(MainActivity.this,SearchActivity.class));
+                }
+                return false;
             }
         } );
     }

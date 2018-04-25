@@ -40,4 +40,5 @@
     <string name="download">下载</string>
     <string name="smart_install">菜鸟手机助手智能安装</string>
     <string name="accessibility_service_description">accessibility_service_description</string>
+    <string name="search_hint">搜索</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.fong.play.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,8 +17,10 @@ import com.fong.play.R;
 import com.fong.play.common.imageloader.ImageLoader;
 import com.fong.play.data.bean.BannerBean;
 import com.fong.play.data.bean.IndexBean;
+import com.fong.play.ui.activity.SubjectActivity;
 import com.fong.play.ui.widget.BannerLayout;
 import com.fong.play.ui.widget.DividerItemDecoration;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,6 +148,12 @@ public class IndexMultipleAdapter extends RecyclerView.Adapter implements View.O
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.layout_hot_subject:
+                Logger.d("热门主题");
+                mContext.startActivity( new Intent( mContext, SubjectActivity.class ) );
+                break;
+        }
 
     }
 

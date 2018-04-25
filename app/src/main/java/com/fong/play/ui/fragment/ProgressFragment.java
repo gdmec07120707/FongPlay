@@ -39,7 +39,7 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
 
 
     @Inject
-    T mPresenter;
+    public T mPresenter;
 
     @Nullable
     @Override

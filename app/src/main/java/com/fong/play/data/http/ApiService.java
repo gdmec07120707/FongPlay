@@ -6,11 +6,15 @@ import com.fong.play.data.bean.Category;
 import com.fong.play.data.bean.IndexBean;
 import com.fong.play.data.bean.LoginBean;
 import com.fong.play.data.bean.PageBean;
+import com.fong.play.data.bean.SearchResult;
+import com.fong.play.data.bean.Subject;
+import com.fong.play.data.bean.SubjectDetail;
 import com.fong.play.data.bean.requestbean.LoginRequestBean;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -59,6 +63,20 @@ public interface ApiService {
 
     @GET("apps/updateinfo")
     Observable<BaseBean<List<AppInfo>>> getAppsUpdateinfo(@Query("packageName") String packageName,@Query("versionCode") String versionCode);
+
+    @GET("subject/hot")
+    Observable<BaseBean<PageBean<Subject>>> getSubjects(@Query("page") int page);
+
+    @GET("subject/{id}")
+    Observable<BaseBean<SubjectDetail>> getSubjectDetail(@Path("id") int id);
+
+    @GET("search/suggest")
+    Observable<BaseBean<List<String>>> searchSuggest(@Query("keyword") String keyword);
+
+    @GET("search")
+    Observable<BaseBean<SearchResult>> search(@Query("keyword") String keyword);
+
+
 
 
 }

@@ -171,6 +171,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     case R.id.menu_download_manager:
                         startActivity( new Intent( MainActivity.this, AppManagerActivity.class ) );
                         break;
+                    case R.id.menu_setting:
+                        startActivity( new Intent( MainActivity.this, SettingActivity.class ) );
+                        break;
                 }
                 return false;
             }

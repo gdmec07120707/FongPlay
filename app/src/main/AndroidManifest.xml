@@ -57,7 +57,8 @@
                 android:resource="@xml/accessibility_service_config" />
         </service>
 
-        <activity android:name=".ui.activity.SearchActivity"></activity>
+        <activity android:name=".ui.activity.SearchActivity"/>
+        <activity android:name=".ui.activity.SettingActivity"/>
     </application>
 
 </manifest>
